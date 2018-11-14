@@ -28,6 +28,7 @@
         "arrow-body-style": ["error", "as-needed"],
         "arrow-parens": ["error", "always"],
         "curly": ["error", "all"],
+        "eol-last": "error",
         "for-direction": "error",
         "no-array-constructor": "error",
         "no-eq-null": "error",
