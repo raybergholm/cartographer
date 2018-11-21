@@ -1,19 +1,24 @@
-import actionTypes from "../actionTypes/base";
+import actionTypes from "../actionTypes/map";
 
 const initialState = {
   currentNode: null,
+  nodeTypes: [],
+  history: [],
   cache: new Map()
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
+const reducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case actionTypes.Search:
       return state;
-    case actionTypes.UpdateCache: {
+    case actionTypes.PushHistory:
       return Object.assign({}, state, {
-        cache: new Map([...Array.from(state.cache), [action.entry.name, action.entry]])
+        history: state.history.concat([payload.entry])
       });
-    }
+    case actionTypes.UpdateCache:
+      return Object.assign({}, state, {
+        cache: new Map([...Array.from(state.cache), [payload.entry.name, payload.entry]])
+      });
     default:
       return state;
   }

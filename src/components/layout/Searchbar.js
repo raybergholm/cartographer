@@ -3,10 +3,18 @@ import PropTypes from "prop-types";
 
 import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
 
-const createNodeTypeOptions = (nodes) => {
-  const nullSelection = (<option key="node-types-select-none" value="">Choose node...</option>);
-  return nodes ? 
-    [nullSelection, ...nodes.map(({ value, text }) => <option key={`node-types-select-${value}`} value={value}>{text}</option>)] :
+const createNodeTypeOptions = (nodeTypes) => {
+  const nullSelection = (<option key="node-types-select-none" value="">Choose node type...</option>);
+  return nodeTypes && nodeTypes.length > 0 ? 
+    [nullSelection, ...nodeTypes.map(({ value, text }) => <option key={`node-types-select-${value}`} value={value}>{text}</option>)] :
+    [nullSelection];
+};
+
+const renderHistory = (mapHistory) => {
+  const nullSelection = (<option key="history-select-none" value="">History...</option>);
+
+  return mapHistory && mapHistory.length > 0  ? 
+    [nullSelection, ...mapHistory.map(({ nodeId, name, nodeType }) => <option key={`history-select-${nodeId}`} value={nodeId}>{`${name} - ${nodeType}`}</option>)] :
     [nullSelection];
 };
 
@@ -15,12 +23,12 @@ const onSearch = (params) => {
   console.log("args?", params);
 };
 
-const Searchbar = ({ nodes }) => (
+const Searchbar = ({ mapHistory, nodeTypes }) => (
   <div id="searchbar">
     <InputGroup>
       <InputGroupAddon addonType="prepend">
         <select defaultValue="">
-          {createNodeTypeOptions(nodes)}
+          {createNodeTypeOptions(nodeTypes)}
         </select>
       </InputGroupAddon>
       <Input placeholder="Some sort of ID or search value..." />
@@ -28,11 +36,17 @@ const Searchbar = ({ nodes }) => (
         <Button color="primary" onClick={onSearch}>Search</Button>
       </InputGroupAddon>
     </InputGroup>
+    <InputGroup>
+      <select defaultValue="">
+        {renderHistory(mapHistory)}
+      </select>
+    </InputGroup>
   </div>
 );
 
 export default Searchbar;
 
 Searchbar.propTypes = {
-  nodes: PropTypes.array
+  mapHistory: PropTypes.array,
+  nodeTypes: PropTypes.array
 };

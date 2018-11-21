@@ -5,26 +5,26 @@ const initialState = {
   errors: new Map()
 };
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
+const reducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case actionTypes.SetFlag:
       return Object.assign({}, state, {
-        flags: new Map([...Array.from(state.flags), [action.name, action.status]])
+        flags: new Map([...Array.from(state.flags), [payload.name, payload.status]])
       });
     case actionTypes.ClearFlag: {
       const nextStateFlags = new Map(Array.from(state.flags));
-      nextStateFlags.delete(action.name);
+      nextStateFlags.delete(payload.name);
       return Object.assign({}, state, {
         flags: nextStateFlags
       });
     }
     case actionTypes.SetError:
       return Object.assign({}, state, {
-        errors: new Map([...Array.from(state.errors), [action.name, action.error]])
+        errors: new Map([...Array.from(state.errors), [payload.name, payload.error]])
       });
     case actionTypes.ClearError: {
       const nextStateErrors = new Map(Array.from(state.errors));
-      nextStateErrors.delete(action.name);
+      nextStateErrors.delete(payload.name);
       return Object.assign({}, state, {
         errors: nextStateErrors
       });

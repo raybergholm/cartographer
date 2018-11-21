@@ -22,6 +22,8 @@ const MapContainer = connect(
     flags: state.base.flags,
     errors: state.base.errors,
     currentNode: state.map.currentNode,
+    nodeTypes: state.map.nodeTypes,
+    mapHistory: state.map.mapHistory,
     cache: state.map.cache
   }),
   (dispatch) => {

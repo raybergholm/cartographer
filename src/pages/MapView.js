@@ -1,15 +1,16 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { Container, Row, Col } from "reactstrap";
 
 import Searchbar from "../components/layout/Searchbar";
 
-const MapView = ({ currentNode }) => (
+const MapView = ({ currentNode, nodeTypes, mapHistory }) => (
   <div>
     <Container>
       <Row>
         <Col>
-          <Searchbar />
+          <Searchbar nodeTypes={nodeTypes} mapHistory={mapHistory} />
         </Col>
       </Row>
       <Row>
@@ -22,3 +23,9 @@ const MapView = ({ currentNode }) => (
 );
 
 export default MapView;
+
+MapView.propTypes = {
+  currentNode: PropTypes.object,
+  mapHistory: PropTypes.array,
+  nodeTypes: PropTypes.array
+};
