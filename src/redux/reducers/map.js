@@ -9,7 +9,9 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case actionTypes.Search:
+    case actionTypes.StartSearch:
+      return state;
+    case actionTypes.SearchResponse:
       return state;
     case actionTypes.PushHistory:
       return Object.assign({}, state, {

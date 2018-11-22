@@ -3,6 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import baseActionCreators from "../redux/actionCreators/base";
+import cartographerActionCreators from "../redux/actionCreators/cartographer";
 
 import AppView from "./AppView";
 
@@ -15,12 +16,19 @@ const createView = (ViewComponent, hooks) => class extends React.Component {
   }
 };
 
-const hooks = {};
+const hooks = {
+  didMount: ({ initialized, actions }) => {
+    if (!initialized) {
+      actions.initialize();
+    }
+  }
+};
 
 const AppContainer = connect(
   (state) => ({
     flags: state.base.flags,
-    errors: state.base.errors
+    errors: state.base.errors,
+    initialized: state.base.initialized
   }),
   (dispatch) => {
     const boundActions = bindActionCreators(baseActionCreators, dispatch);

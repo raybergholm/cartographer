@@ -1,6 +1,7 @@
 import actionTypes from "../actionTypes/base";
 
 const initialState = {
+  initialized: false,
   flags: new Map(),
   errors: new Map()
 };
@@ -29,6 +30,11 @@ const reducer = (state = initialState, { type, payload }) => {
         errors: nextStateErrors
       });
     }
+    case actionTypes.Initialized:
+      return Object.assign({}, state, {
+        initialized: true
+      });
+    case actionTypes.Initialize:
     default:
       return state;
   }

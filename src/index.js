@@ -6,7 +6,7 @@ import createSagaMiddleware from "redux-saga";
 
 import rootReducer from "./redux/reducers/root";
 
-import mainSagas from "./redux/sagas/main";
+import mainSagas from "./redux/sagas/mainSaga";
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";

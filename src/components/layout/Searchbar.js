@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
 
 const createNodeTypeOptions = (nodeTypes) => {
+  console.log("nodeTypes", nodeTypes);
   const nullSelection = (<option key="node-types-select-none" value="">Choose node type...</option>);
   return nodeTypes && nodeTypes.length > 0 ? 
-    [nullSelection, ...nodeTypes.map(({ value, text }) => <option key={`node-types-select-${value}`} value={value}>{text}</option>)] :
+    [nullSelection, ...nodeTypes.map(({ type }) => <option key={`node-types-select-${type}`} value={type}>{type}</option>)] :
     [nullSelection];
 };
 
@@ -18,22 +19,17 @@ const renderHistory = (mapHistory) => {
     [nullSelection];
 };
 
-const onSearch = (params) => {
-  console.log("hi");
-  console.log("args?", params);
-};
-
-const Searchbar = ({ mapHistory, nodeTypes }) => (
+const Searchbar = ({ actions, mapHistory, nodeTypes, searchValue, selectedNodeType }) => (
   <div id="searchbar">
     <InputGroup>
       <InputGroupAddon addonType="prepend">
-        <select defaultValue="">
+        <select value={selectedNodeType} onChange={(event) => actions.updateSelectedNodeType(event.target.value)}>
           {createNodeTypeOptions(nodeTypes)}
         </select>
       </InputGroupAddon>
-      <Input placeholder="Some sort of ID or search value..." />
+      <Input placeholder="Some sort of ID or search value..." value={searchValue} onChange={(event) => actions.updateSearchValue(event.target.value)} />
       <InputGroupAddon addonType="append">
-        <Button color="primary" onClick={onSearch}>Search</Button>
+        <Button color="primary" onClick={() => actions.startSearch(searchValue, selectedNodeType)}>Search</Button>
       </InputGroupAddon>
     </InputGroup>
     <InputGroup>
@@ -47,6 +43,9 @@ const Searchbar = ({ mapHistory, nodeTypes }) => (
 export default Searchbar;
 
 Searchbar.propTypes = {
+  actions: PropTypes.object,
   mapHistory: PropTypes.array,
-  nodeTypes: PropTypes.array
+  nodeTypes: PropTypes.array,
+  searchValue: PropTypes.string,
+  selectedNodeType: PropTypes.string
 };

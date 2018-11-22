@@ -26,6 +26,12 @@ const actionCreators = {
     payload: {
       name
     }
+  }),
+  initialize: () => ({
+    type: actionTypes.Initialize
+  }),
+  initialized: () => ({
+    type: actionTypes.Initialized
   })
 };
 

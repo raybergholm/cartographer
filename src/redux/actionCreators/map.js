@@ -1,11 +1,17 @@
-import actionTypes from "../actionTypes/base";
+import actionTypes from "../actionTypes/map";
 
 const actionCreators = {
-  search: (value, nodeType) => ({
-    type: actionTypes.Search,
+  updateCurrentNode: (node) => ({
+    type: actionTypes.UpdateCurrentNode,
     payload: {
-      value,
-      nodeType
+      node
+    }
+  }),
+  fetchCurrentNodeEdge: (node, edge) => ({
+    type: actionTypes.FetchCurrentNodeEdge,
+    payload: {
+      node,
+      edge
     }
   }),
   updateCache: (entry) => ({

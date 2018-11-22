@@ -1,6 +1,6 @@
 const actionTypes = {
-  Search: "SEARCH",
-  SearchResult: "SEARCH_RESULT",
+  UpdateCurrentNode: "UPDATE_CURRENT_NODE",
+  FetchCurrentNodeEdge: "FETCH_CURRENT_NODE_EDGE",
   UpdateCache: "UPDATE_CACHE"
 };
 
