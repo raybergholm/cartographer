@@ -5,13 +5,14 @@ import { Container, Row, Col } from "reactstrap";
 
 import Searchbar from "../components/layout/Searchbar";
 
-const MapView = ({ actions, currentNode, nodeTypes, searchValue, selectedNodeType, mapHistory }) => (
+const MapView = ({ actions, currentNode, instance, nodeTypes, searchValue, selectedNodeType, mapHistory }) => (
   <div>
     <Container>
       <Row>
         <Col>
           <Searchbar 
             actions={actions}
+            instance={instance}
             nodeTypes={Array.from(nodeTypes.values())}
             searchValue={searchValue}
             selectedNodeType={selectedNodeType}
@@ -33,6 +34,7 @@ export default MapView;
 MapView.propTypes = {
   actions: PropTypes.object,
   currentNode: PropTypes.object,
+  instance: PropTypes.object,
   mapHistory: PropTypes.array,
   nodeTypes: PropTypes.object,
   searchValue: PropTypes.string,

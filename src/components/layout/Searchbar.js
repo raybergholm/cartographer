@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { InputGroup, InputGroupAddon, Input, Button } from "reactstrap";
 
 const createNodeTypeOptions = (nodeTypes) => {
-  console.log("nodeTypes", nodeTypes);
   const nullSelection = (<option key="node-types-select-none" value="">Choose node type...</option>);
   return nodeTypes && nodeTypes.length > 0 ? 
     [nullSelection, ...nodeTypes.map(({ type }) => <option key={`node-types-select-${type}`} value={type}>{type}</option>)] :
@@ -19,7 +18,7 @@ const renderHistory = (mapHistory) => {
     [nullSelection];
 };
 
-const Searchbar = ({ actions, mapHistory, nodeTypes, searchValue, selectedNodeType }) => (
+const Searchbar = ({ actions, instance, mapHistory, nodeTypes, searchValue, selectedNodeType }) => (
   <div id="searchbar">
     <InputGroup>
       <InputGroupAddon addonType="prepend">
@@ -29,7 +28,7 @@ const Searchbar = ({ actions, mapHistory, nodeTypes, searchValue, selectedNodeTy
       </InputGroupAddon>
       <Input placeholder="Some sort of ID or search value..." value={searchValue} onChange={(event) => actions.updateSearchValue(event.target.value)} />
       <InputGroupAddon addonType="append">
-        <Button color="primary" onClick={() => actions.startSearch(searchValue, selectedNodeType)}>Search</Button>
+        <Button color="primary" onClick={() => instance && actions.startSearch(instance, searchValue, selectedNodeType)}>Search</Button>
       </InputGroupAddon>
     </InputGroup>
     <InputGroup>
@@ -44,6 +43,7 @@ export default Searchbar;
 
 Searchbar.propTypes = {
   actions: PropTypes.object,
+  instance: PropTypes.object,
   mapHistory: PropTypes.array,
   nodeTypes: PropTypes.array,
   searchValue: PropTypes.string,

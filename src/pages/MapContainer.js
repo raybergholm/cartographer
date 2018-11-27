@@ -19,17 +19,18 @@ const createView = (ViewComponent, hooks) => class extends React.Component {
 const hooks = {};
 
 const MapContainer = connect(
-  (state) => ({
-    flags: state.base.flags,
-    errors: state.base.errors,
-    currentNode: state.map.currentNode,
-    searchValue: state.search.searchValue,
-    selectedNodeType: state.search.selectedNodeType,
-    nodeTypes: state.cartographer.nodeTypes,
-    paths: state.cartographer.paths,
-    linkers: state.cartographer.linkers,
-    mapHistory: state.map.mapHistory,
-    cache: state.map.cache
+  ({ base, map, search, cartographer }) => ({
+    flags: base.flags,
+    errors: base.errors,
+    currentNode: map.currentNode,
+    searchValue: search.searchValue,
+    selectedNodeType: search.selectedNodeType,
+    instance: cartographer.instance,
+    nodeTypes: cartographer.nodeTypes,
+    paths: cartographer.paths,
+    linkers: cartographer.linkers,
+    mapHistory: map.mapHistory,
+    cache: map.cache
   }),
   (dispatch) => {
     const mergedActions = Object.assign({}, mapActionCreators, searchActionCreators);

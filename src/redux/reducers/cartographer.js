@@ -1,6 +1,7 @@
 import actionTypes from "../actionTypes/cartographer";
 
 const initialState = {
+  instance: null,
   nodeTypes: new Map(),
   paths: new Map(),
   linkers: new Map(),
@@ -11,13 +12,19 @@ const initialState = {
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actionTypes.Initialize:
-      return Object.assign({}, state);
+      return state;
     case actionTypes.ConfigLoaded: {
       const { nodeTypes, paths, linkers } = payload;
       return Object.assign({}, state, {
         nodeTypes,
         paths,
         linkers
+      });
+    }
+    case actionTypes.Initialized: {
+      const { instance } = payload;
+      return Object.assign({}, state, {
+        instance
       });
     }
     default:

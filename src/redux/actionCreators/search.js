@@ -13,9 +13,10 @@ const actionCreators = {
       selectedNodeType
     }
   }),
-  startSearch: (searchValue, selectedNodeType) => ({
+  startSearch: (instance, searchValue, selectedNodeType) => ({
     type: actionTypes.StartSearch,
     payload: {
+      instance,
       searchValue,
       selectedNodeType
     }

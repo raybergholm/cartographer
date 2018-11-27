@@ -1,7 +1,7 @@
 import MapNode from "./MapNode";
-import Path from "./Paths";
+import Path from "./Path";
 
-import Doggo from "doggo";
+// import { Doggo } from "../doggo/lib/Doggo";
 
 const API_TYPES = {
     Rest: "rest",
@@ -9,19 +9,24 @@ const API_TYPES = {
 };
 
 export class Cartographer {
-    constructor ({ descriptors, hostUrl, authHeaders = {}, atlas = null }) {
+    constructor ({ hostUrl, authHeaders = {}, atlas = null, nodeTypes, paths, linkers }) {
         this._cache = new Map();
 
-        this._descriptors = this.processDescriptors(descriptors);
-        
-        this._request = new Doggo({
-            host: hostUrl,
-            headers: authHeaders
-        });
+        this._hostUrl = hostUrl;
+        this._authHeaders = authHeaders;
+
+        // this._request = new Doggo({
+        //     host: hostUrl,
+        //     headers: authHeaders
+        // });
 
         if (atlas) {
             this._atlas = atlas;
         }
+    }
+
+    query ({ searchValue, type }) {
+        console.log(`Cartographer query: got searchValue = ${searchValue} and type = ${type}`);
     }
 
     queryNode ({ id, type, queryParams, force = false, ...others }) {
@@ -41,3 +46,5 @@ export class Cartographer {
         return this._request.get({ apiPath, queryParams });
     }
 }
+
+export default Cartographer;
