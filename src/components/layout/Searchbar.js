@@ -10,10 +10,10 @@ const createNodeTypeOptions = (nodeTypes) => {
     [nullSelection];
 };
 
-const createSearchableFieldOptions = (searchableFields) => {
-  const nullSelection = (<option key="searchable-fields-select-any" value="ANY">any field...</option>);
+const createSearchableFieldOptions = (nodeType, searchableFields) => {
+  const nullSelection = (<option key={`searchable-fields-select-${nodeType}-any`} value="ANY">any field...</option>);
   return searchableFields && searchableFields.length > 0 ? 
-    [nullSelection, ...searchableFields.map(({ label, fieldName }) => <option key={`searchable-fields-select-${fieldName}`} value={fieldName}>{label}</option>)] :
+    [nullSelection, ...searchableFields.map(({ label, fieldName }) => <option key={`searchable-fields-select-${nodeType}-${fieldName}`} value={fieldName}>{label}</option>)] :
     [nullSelection];
 };
 
@@ -35,7 +35,7 @@ const Searchbar = ({ actions, instance, mapHistory, nodeTypes, searchValue, sear
       </InputGroupAddon>
       <InputGroupAddon addonType="prepend">
         <select value={selectedSearchField} onChange={(event) => actions.updateSelectedSearchableField(event.target.value)}>
-          {createSearchableFieldOptions(searchableFields)}
+          {createSearchableFieldOptions(selectedNodeType, searchableFields)}
         </select>
       </InputGroupAddon>
       <Input placeholder="Some sort of ID or search value..." value={searchValue} onChange={(event) => actions.updateSearchValue(event.target.value)} />

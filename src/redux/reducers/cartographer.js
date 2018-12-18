@@ -13,9 +13,6 @@ export const normalize = (items, idField) => items.reduce((accumulator, entry) =
 
 const updateSearchableFields = (id, nodeTypes) => {
   const result = getFromEntity(id, nodeTypes);
-
-  console.log("searchableFields result:", result.searchableFields);
-
   return result && result.searchableFields ? result.searchableFields : null;
 };
 
