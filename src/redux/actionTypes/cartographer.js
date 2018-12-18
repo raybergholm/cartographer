@@ -1,8 +1,10 @@
 const actionTypes = {
-  Initialize: "INITIALIZE",
-  ConfigLoaded: "CONFIG_LOADED",
-  Initialized: "INITIALIZED",
-  QueryApi: "QUERY_API"
+  SetNodeTypes: "SET_NODE_TYPES",
+  SetPaths: "SET_PATHS",
+  SetLinkers: "SET_LINKERS",
+  GetData: "GET_DATA",
+  QueryApi: "QUERY_API",
+  UpdateSearchableFields: "UPDATE_SEARCHABLE_FIELDS"
 };
 
 export default actionTypes;

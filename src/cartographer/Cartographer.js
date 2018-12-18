@@ -20,11 +20,28 @@ export class Cartographer {
         //     headers: authHeaders
         // });
 
+        this._nodeTypes = nodeTypes;
+        this._paths = paths;
+        this._linkers = linkers;
+
         if (atlas) {
             this._atlas = atlas;
         }
     }
 
+    get hostUrl () {
+        return this._hostUrl;
+    }
+    get nodeTypes () {
+        return this._nodeTypes;
+    }
+    get paths () {
+        return this._paths;
+    }
+    get linkers () {
+        return this._linkers;
+    }
+    
     query ({ searchValue, type }) {
         console.log(`Cartographer query: got searchValue = ${searchValue} and type = ${type}`);
     }

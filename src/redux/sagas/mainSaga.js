@@ -10,42 +10,26 @@ import cartographerActionTypes from "../actionTypes/cartographer";
 import mapActionTypes from "../actionTypes/map";
 import searchActionTypes from "../actionTypes/search";
 
-import Cartographer from "../../cartographer/Cartographer";
+import { normalize } from "../reducers/cartographer";
 
 export function* initializeApp() {
-  const { nodeTypes, paths, linkers } = yield getCartographerConfigs();
-  yield put(cartographerActionCreators.configLoaded(nodeTypes, paths, linkers));
+  const nodeTypesConfig = yield import("../../config/nodeTypes.json");
+  yield put(cartographerActionCreators.setNodeTypes(normalize(nodeTypesConfig.default, "type")));
 
-  const instance = yield initializeCartographer({ nodeTypes, paths, linkers });
-  yield put(cartographerActionCreators.initialized(instance));
+  const pathsConfig = yield import("../../config/paths.json");
+  yield put(cartographerActionCreators.setPaths(normalize(pathsConfig.default, "type")));
+
+  const linkersConfig = yield import("../../config/linkers.json");
+  yield put(cartographerActionCreators.setLinkers(normalize(linkersConfig.default, "type")));
 
   yield put({
     type: baseActionTypes.Initialized
   });
 }
 
-const getCartographerConfigs = async () => {
-  const toMap = (arr) => arr.reduce((accumulator, item) => {
-    accumulator.set(item.type, item);
-    return accumulator;
-  }, new Map());
-
-  const nodeTypesConfig = await import("../../config/nodeTypes.json");
-  const pathsConfig = await import("../../config/paths.json");
-  const linkersConfig = await import("../../config/linkers.json");
-
-  return {
-    nodeTypes: toMap(nodeTypesConfig.default),
-    paths: toMap(pathsConfig.default),
-    linkers: toMap(linkersConfig.default)
-  };
-};
-
-const initializeCartographer = async (configs) => {
-  const metadata = await import("../../config/cartographer.int3.json");
-
-  return new Cartographer(Object.assign({}, metadata, configs));
-};
+function* alsoUpdateSearchableFields ({ payload }) {
+  yield put(cartographerActionCreators.updateSearchableFields(payload.selectedNodeType));
+}
 
 export function* search({ payload }) {
   console.log("payload", payload);
@@ -60,5 +44,6 @@ export function* search({ payload }) {
 
 export default function* mainSagas() {
   yield takeEvery(baseActionTypes.Initialize, initializeApp);
+  yield takeEvery(searchActionTypes.UpdateSelectedNodeType, alsoUpdateSearchableFields);
   yield takeEvery(searchActionTypes.StartSearch, search);
 }

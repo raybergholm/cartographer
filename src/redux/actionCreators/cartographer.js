@@ -1,21 +1,29 @@
 import actionTypes from "../actionTypes/cartographer";
 
 const actionCreators = {
-  initialize: () => ({
-    type: actionTypes.Initialize
-  }),
-  configLoaded: (nodeTypes, paths, linkers) => ({
-    type: actionTypes.ConfigLoaded,
+  setNodeTypes: (nodeTypes) => ({
+    type: actionTypes.SetNodeTypes,
     payload: {
-      nodeTypes,
-      paths, 
+      nodeTypes
+    }
+  }),
+  setPaths: (paths) => ({
+    type: actionTypes.SetPaths,
+    payload: {
+      paths
+    }
+  }),
+  setLinkers: (linkers) => ({
+    type: actionTypes.SetLinkers,
+    payload: {
       linkers
     }
   }),
-  initialized: (instance) => ({
-    type: actionTypes.Initialized,
+  getData: (id, entity) => ({
+    type: actionTypes.GetData,
     payload: {
-      instance
+      id,
+      entity
     }
   }),
   queryApi: (nodeType, searchValue) => ({
@@ -24,7 +32,14 @@ const actionCreators = {
       nodeType,
       searchValue
     }
+  }),
+  updateSearchableFields: (nodeType) => ({
+    type: actionTypes.UpdateSearchableFields,
+    payload: {
+      nodeType
+    }
   })
+
 };
 
 export default actionCreators;

@@ -5,7 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 
 import Searchbar from "../components/layout/Searchbar";
 
-const MapView = ({ actions, currentNode, instance, nodeTypes, searchValue, selectedNodeType, mapHistory }) => (
+const MapView = ({ actions, currentNode, instance, nodeTypes, searchValue, searchableFields, selectedNodeType, selectedSearchField, mapHistory }) => (
   <div>
     <Container>
       <Row>
@@ -13,9 +13,11 @@ const MapView = ({ actions, currentNode, instance, nodeTypes, searchValue, selec
           <Searchbar 
             actions={actions}
             instance={instance}
-            nodeTypes={Array.from(nodeTypes.values())}
+            nodeTypes={(nodeTypes && nodeTypes.byId && Array.from(nodeTypes.byId.values())) || []}
             searchValue={searchValue}
+            searchableFields={searchableFields}
             selectedNodeType={selectedNodeType}
+            selectedSearchField={selectedSearchField}
             mapHistory={mapHistory}
           />
         </Col>
@@ -38,5 +40,7 @@ MapView.propTypes = {
   mapHistory: PropTypes.array,
   nodeTypes: PropTypes.object,
   searchValue: PropTypes.string,
-  selectedNodeType: PropTypes.string
+  searchableFields: PropTypes.array,
+  selectedNodeType: PropTypes.string,
+  selectedSearchField: PropTypes.string
 };

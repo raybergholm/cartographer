@@ -27,6 +27,7 @@ const MapContainer = connect(
     selectedNodeType: search.selectedNodeType,
     instance: cartographer.instance,
     nodeTypes: cartographer.nodeTypes,
+    searchableFields: cartographer.searchableFields,
     paths: cartographer.paths,
     linkers: cartographer.linkers,
     mapHistory: map.mapHistory,

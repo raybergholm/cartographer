@@ -10,6 +10,13 @@ const createNodeTypeOptions = (nodeTypes) => {
     [nullSelection];
 };
 
+const createSearchableFieldOptions = (searchableFields) => {
+  const nullSelection = (<option key="searchable-fields-select-any" value="ANY">any field...</option>);
+  return searchableFields && searchableFields.length > 0 ? 
+    [nullSelection, ...searchableFields.map(({ label, fieldName }) => <option key={`searchable-fields-select-${fieldName}`} value={fieldName}>{label}</option>)] :
+    [nullSelection];
+};
+
 const renderHistory = (mapHistory) => {
   const nullSelection = (<option key="history-select-none" value="">History...</option>);
 
@@ -18,7 +25,7 @@ const renderHistory = (mapHistory) => {
     [nullSelection];
 };
 
-const Searchbar = ({ actions, instance, mapHistory, nodeTypes, searchValue, selectedNodeType }) => (
+const Searchbar = ({ actions, instance, mapHistory, nodeTypes, searchValue, searchableFields, selectedNodeType, selectedSearchField }) => (
   <div id="searchbar">
     <InputGroup>
       <InputGroupAddon addonType="prepend">
@@ -26,9 +33,14 @@ const Searchbar = ({ actions, instance, mapHistory, nodeTypes, searchValue, sele
           {createNodeTypeOptions(nodeTypes)}
         </select>
       </InputGroupAddon>
+      <InputGroupAddon addonType="prepend">
+        <select value={selectedSearchField} onChange={(event) => actions.updateSelectedSearchableField(event.target.value)}>
+          {createSearchableFieldOptions(searchableFields)}
+        </select>
+      </InputGroupAddon>
       <Input placeholder="Some sort of ID or search value..." value={searchValue} onChange={(event) => actions.updateSearchValue(event.target.value)} />
       <InputGroupAddon addonType="append">
-        <Button color="primary" onClick={() => instance && actions.startSearch(instance, searchValue, selectedNodeType)}>Search</Button>
+        <Button color="primary" disabled={!selectedNodeType} onClick={() => actions.startSearch(instance, searchValue, selectedNodeType)}>Search</Button>
       </InputGroupAddon>
     </InputGroup>
     <InputGroup>
@@ -47,5 +59,7 @@ Searchbar.propTypes = {
   mapHistory: PropTypes.array,
   nodeTypes: PropTypes.array,
   searchValue: PropTypes.string,
-  selectedNodeType: PropTypes.string
+  searchableFields: PropTypes.array,
+  selectedNodeType: PropTypes.string,
+  selectedSearchField: PropTypes.string
 };

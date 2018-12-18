@@ -13,6 +13,18 @@ const actionCreators = {
       selectedNodeType
     }
   }),
+  updateSelectedSearchableField: (selectedSearchableField) => ({
+    type: actionTypes.UpdateSelectedSearchableField,
+    payload: {
+      selectedSearchableField
+    }
+  }),
+  updateSearchableFields: (searchableFields) => ({
+    type: actionTypes.updateSearchableFields,
+    payload: {
+      searchableFields
+    }
+  }),
   startSearch: (instance, searchValue, selectedNodeType) => ({
     type: actionTypes.StartSearch,
     payload: {

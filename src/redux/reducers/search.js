@@ -1,8 +1,9 @@
 import actionTypes from "../actionTypes/search";
 
 const initialState = {
-  searchValue: "",
-  nodeType: ""
+  selectedNodeType: "",
+  selectedSearchableField: "",
+  searchValue: ""
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -16,6 +17,10 @@ const reducer = (state = initialState, { type, payload }) => {
       console.log(`about to update selected node type to ${payload.selectedNodeType}`);
       return Object.assign({}, state, {
         selectedNodeType: payload.selectedNodeType
+      });
+    case actionTypes.UpdateSelectedSearchableField:
+      return Object.assign({}, state, {
+        selectedSearchableField: payload.selectedSearchableField
       });
     case actionTypes.StartSearch:
       return state;
