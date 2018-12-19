@@ -33,11 +33,7 @@ function* alsoUpdateSearchableFields ({ payload }) {
 
 export function* search({ payload }) {
   console.log("payload", payload);
-  const { instance, searchValue, selectedNodeType } = payload;
-  console.log("value", searchValue);
-  console.log("nodeType", selectedNodeType);
-
-  const result = yield instance.query({ searchValue, type: selectedNodeType });
+  const { searchValue, selectedNodeType, selectedSearchableField } = payload;
 
   yield true;
 }

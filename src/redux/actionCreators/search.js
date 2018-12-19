@@ -13,10 +13,10 @@ const actionCreators = {
       selectedNodeType
     }
   }),
-  updateSelectedSearchableField: (selectedSearchableField) => ({
-    type: actionTypes.UpdateSelectedSearchableField,
+  updateSelectedSearchField: (selectedSearchField) => ({
+    type: actionTypes.UpdateSelectedSearchField,
     payload: {
-      selectedSearchableField
+      selectedSearchField
     }
   }),
   updateSearchableFields: (searchableFields) => ({
@@ -25,12 +25,12 @@ const actionCreators = {
       searchableFields
     }
   }),
-  startSearch: (instance, searchValue, selectedNodeType) => ({
+  startSearch: (searchValue, nodeType, field) => ({
     type: actionTypes.StartSearch,
     payload: {
-      instance,
       searchValue,
-      selectedNodeType
+      nodeType,
+      field
     }
   }),
   SearchResponse: (result) => ({

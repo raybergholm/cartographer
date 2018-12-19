@@ -18,9 +18,9 @@ const reducer = (state = initialState, { type, payload }) => {
       return Object.assign({}, state, {
         selectedNodeType: payload.selectedNodeType
       });
-    case actionTypes.UpdateSelectedSearchableField:
+    case actionTypes.UpdateSelectedSearchField:
       return Object.assign({}, state, {
-        selectedSearchableField: payload.selectedSearchableField
+        selectedSearchField: payload.selectedSearchField
       });
     case actionTypes.StartSearch:
       return state;

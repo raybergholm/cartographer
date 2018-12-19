@@ -34,13 +34,13 @@ const Searchbar = ({ actions, instance, mapHistory, nodeTypes, searchValue, sear
         </select>
       </InputGroupAddon>
       <InputGroupAddon addonType="prepend">
-        <select value={selectedSearchField} onChange={(event) => actions.updateSelectedSearchableField(event.target.value)}>
+        <select value={selectedSearchField} onChange={(event) => actions.updateSelectedSearchField(event.target.value)}>
           {createSearchableFieldOptions(selectedNodeType, searchableFields)}
         </select>
       </InputGroupAddon>
       <Input placeholder="Some sort of ID or search value..." value={searchValue} onChange={(event) => actions.updateSearchValue(event.target.value)} />
       <InputGroupAddon addonType="append">
-        <Button color="primary" disabled={!selectedNodeType} onClick={() => actions.startSearch(instance, searchValue, selectedNodeType)}>Search</Button>
+        <Button color="primary" disabled={!selectedNodeType} onClick={() => actions.startSearch(searchValue, selectedNodeType, selectedSearchField)}>Search</Button>
       </InputGroupAddon>
     </InputGroup>
     <InputGroup>
