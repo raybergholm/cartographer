@@ -26,12 +26,9 @@ const actionCreators = {
       entity
     }
   }),
-  queryApi: (nodeType, searchValue) => ({
-    type: actionTypes.QueryApi,
-    payload: {
-      nodeType,
-      searchValue
-    }
+  query: (payload) => ({
+    type: actionTypes.Query,
+    payload
   }),
   updateSearchableFields: (nodeType) => ({
     type: actionTypes.UpdateSearchableFields,

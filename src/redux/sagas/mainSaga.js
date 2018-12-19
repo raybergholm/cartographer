@@ -27,19 +27,26 @@ export function* initializeApp() {
   });
 }
 
+// Side-effect: search action triggers Cartographer to update itself
 function* alsoUpdateSearchableFields ({ payload }) {
   yield put(cartographerActionCreators.updateSearchableFields(payload.selectedNodeType));
 }
 
-export function* search({ payload }) {
-  console.log("payload", payload);
+// Pass search action from Search -> Cartographer
+export function* startSearch({ payload }) {
+  yield put(cartographerActionCreators.query(payload));
+}
+
+function* query ({ payload }) {
   const { searchValue, selectedNodeType, selectedSearchableField } = payload;
 
+  console.log("query payload", payload);
   yield true;
 }
 
 export default function* mainSagas() {
   yield takeEvery(baseActionTypes.Initialize, initializeApp);
   yield takeEvery(searchActionTypes.UpdateSelectedNodeType, alsoUpdateSearchableFields);
-  yield takeEvery(searchActionTypes.StartSearch, search);
+  yield takeEvery(searchActionTypes.StartSearch, startSearch);
+  yield takeEvery(cartographerActionTypes.Query, query);
 }

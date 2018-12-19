@@ -3,7 +3,7 @@ const actionTypes = {
   SetPaths: "SET_PATHS",
   SetLinkers: "SET_LINKERS",
   GetData: "GET_DATA",
-  QueryApi: "QUERY_API",
+  Query: "QUERY",
   UpdateSearchableFields: "UPDATE_SEARCHABLE_FIELDS"
 };
 
